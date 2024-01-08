@@ -10,6 +10,7 @@ import AppTopBar from "./components/dashboard/AppTopBar";
 import { red } from '@mui/material/colors';
 import AppBreadCrumbs from "./components/dashboard/AppBreadCrumbs";
 import StaffList from "./pages/StaffList";
+import MemberTimeline from "./components/MemberTimeline";
 
 const defaultTheme = createTheme({
   palette: {
@@ -48,16 +49,13 @@ export default function App() {
           <Toolbar /> {/** This is added to add toolbar space in body */}
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             
-            
-            
-            <AppBreadCrumbs />
 
+            <AppBreadCrumbs />
             <StaffList />
 
-
-
-
-
+            {/* <Box sx={{ width: "600px"}}>
+              <MemberTimeline />
+            </Box> */}
             <Typography
               variant="body2"
               color="text.secondary"
