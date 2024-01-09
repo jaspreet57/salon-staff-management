@@ -2,15 +2,22 @@ import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 import AppDrawer from "./components/dashboard/Drawer";
 import AppTopBar from "./components/dashboard/AppTopBar";
-import { red } from '@mui/material/colors';
+import { red } from "@mui/material/colors";
 import AppBreadCrumbs from "./components/dashboard/AppBreadCrumbs";
 import StaffList from "./pages/StaffList";
-import MemberTimeline from "./components/MemberTimeline";
+import AuthProvider, {
+  LoginPage,
+  RequireAuth,
+} from "./components/AuthProvider";
+import CopyrightText from "./components/dashboard/CopyrightText";
+import MemberDetails from "./pages/MemberDetails";
 
 const defaultTheme = createTheme({
   palette: {
@@ -31,47 +38,50 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex" }}>
-        <AppTopBar open={open} toggleDrawer={toggleDrawer} />
-        <AppDrawer open={open} toggleDrawer={toggleDrawer} />
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        >
-          <Toolbar /> {/** This is added to add toolbar space in body */}
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            
+      <AuthProvider>
+        <Box sx={{ display: "flex" }}>
+          <AppTopBar open={open} toggleDrawer={toggleDrawer} />
+          <AppDrawer open={open} toggleDrawer={toggleDrawer} />
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: "100vh",
+              overflow: "auto",
+            }}
+          >
+            <Toolbar /> {/** This is added to add toolbar space in body */}
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <AppBreadCrumbs />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <RequireAuth>
+                      <StaffList />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/staff/:memberId"
+                  element={
+                    <RequireAuth>
+                      <MemberDetails />
+                    </RequireAuth>
+                  }
+                />
+                <Route path="/login" element={<LoginPage />} />
+              </Routes>
 
-            <AppBreadCrumbs />
-            <StaffList />
-
-            {/* <Box sx={{ width: "600px"}}>
-              <MemberTimeline />
-            </Box> */}
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              align="center"
-              sx={{ pt: 4 }}
-            >
-              {"Copyright © "}
-              <Link color="secondary" href="./">
-                Salon Staff Management
-              </Link>{" "}
-              {new Date().getFullYear()}
-              {"."}
-            </Typography>
-          </Container>
+              <CopyrightText />
+            </Container>
+          </Box>
         </Box>
-      </Box>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

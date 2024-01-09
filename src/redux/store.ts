@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import staffReducer from './staff/staffSlice';
+import staffReducer from './staffSlice';
+import appointmentsReducer from './appointmentsSlice';
 
 export const store = configureStore({
   reducer: {
-    staff: staffReducer
+    staff: staffReducer,
+    appointments: appointmentsReducer
   },
   devTools: false,
   preloadedState: {}

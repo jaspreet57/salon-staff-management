@@ -18,17 +18,21 @@ import {
   getStaffList,
   addMember,
   selectStaffList,
-} from "../redux/staff/staffSlice";
+} from "../redux/staffSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function StaffList() {
   const staffList = useAppSelector(selectStaffList);
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
-    // todo
+    event.preventDefault();
+    navigate(`/staff/${id}`);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -55,8 +59,8 @@ export default function StaffList() {
     <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
       <Toolbar
         sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
+          pl: { xs: 0 },
+          pr: { xs: 0 },
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -101,7 +105,9 @@ export default function StaffList() {
                   <TableCell component="th" scope="row" padding="none">
                     {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.startTime} to {row.endTime}</TableCell>
+                  <TableCell align="right">
+                    {row.startTime} to {row.endTime}
+                  </TableCell>
                   <TableCell align="right"> -- </TableCell>
                 </TableRow>
               );

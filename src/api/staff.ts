@@ -1,4 +1,4 @@
-import { StaffMember } from "./schema";
+import { StaffMember } from "../types/staff";
 
 // A mock function to mimic making an async request for data
 export function fetchStaff() {

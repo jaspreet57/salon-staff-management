@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { RootState } from '../store';
-import { fetchStaff } from './staffAPIs';
-import { StaffMember } from './schema';
+import { RootState } from './store';
+import { fetchStaff } from '../api/staff';
+import { StaffMember } from '../types/staff';
 
 
 function createData(
@@ -88,7 +88,15 @@ export const staffSlice = createSlice({
 // this is for dispatch
 export const { addMember } = staffSlice.actions;
 
+
+// Selectors
 export const selectStaffList = (state: RootState) => state.staff.value;
+
+export const selectMemberById = (memberId?: string) =>
+  createSelector(
+    [selectStaffList],
+    (staff) => staff.find((member) => member.id === memberId)
+  );
 
 // this is for configureStore
 export default staffSlice.reducer;
