@@ -14,6 +14,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import { Link as RouterLink } from 'react-router-dom';
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -63,7 +64,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({ open, toggleDrawer }) => {
       </Toolbar>
       <Divider />
       <List component="nav">
-        <ListItemButton>
+        <ListItemButton component={RouterLink} to="/">
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
@@ -73,25 +74,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({ open, toggleDrawer }) => {
           <ListItemIcon>
             <LayersIcon />
           </ListItemIcon>
-          <ListItemText primary="Appointments" />
-        </ListItemButton>
-
-        <Divider sx={{ my: 1 }} />
-
-        <ListSubheader component="div" inset>
-          Quick Links
-        </ListSubheader>
-        <ListItemButton>
-          <ListItemIcon>
-            <AssignmentIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create Appointment" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <AssignmentIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create Staff" />
+          <ListItemText primary="All Appointments" />
         </ListItemButton>
       </List>
     </Drawer>

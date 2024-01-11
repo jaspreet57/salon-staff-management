@@ -25,5 +25,24 @@
       "endTime": 15
     }
   ],
-  "appointments": []
+  "appointments": [
+    {
+      "id": "bdb88498-c289-4c08-9efd-296440f9a2df",
+      "memberId": "staff-1",
+      "title": "adfasd",
+      "clientName": "asdfasdf",
+      "comment": "asfdasf",
+      "startTime": "Mon, 08 Jan 2024 02:30:00 GMT",
+      "endTime": "Mon, 08 Jan 2024 03:30:00 GMT"
+    },
+    {
+      "id": "62118680-dd05-47f8-8d48-94f7e054e55f",
+      "memberId": "staff-1",
+      "title": "asdfasfa",
+      "clientName": "sdfasf",
+      "comment": "asdfasfd",
+      "startTime": "Mon, 08 Jan 2024 04:30:00 GMT",
+      "endTime": "Mon, 08 Jan 2024 05:30:00 GMT"
+    }
+  ]
 }
