@@ -16,7 +16,6 @@ import Title from "../components/Title";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import {
   getStaffList,
-  addMember,
   selectStaffList,
 } from "../redux/staffSlice";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +28,10 @@ export default function StaffList() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  React.useEffect(() => {
+    dispatch(getStaffList());
+  }, [dispatch]);
 
   const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
     event.preventDefault();

@@ -4,47 +4,15 @@ import { RootState } from './store';
 import { fetchStaff } from '../api/staff';
 import { StaffMember } from '../types/staff';
 
-
-function createData(
-  id: string,
-  name: string,
-  startTime: number,
-  endTime: number
-): StaffMember {
-  return {
-    id,
-    name,
-    startTime,
-    endTime,
-  };
-}
-
-const rows = [
-  createData("1", "Cupcake", 305, 3.7),
-  createData("2", "Donut", 452, 25.0),
-  createData("3", "Eclair", 262, 16.0),
-  createData("4", "Frozen yoghurt", 159, 6.0),
-  createData("5", "Gingerbread", 356, 16.0),
-  createData("6", "Honeycomb", 408, 3.2),
-  createData("7", "Ice cream sandwich", 237, 9.0),
-  createData("8", "Jelly Bean", 375, 0.0),
-  createData("9", "KitKat", 518, 26.0),
-  createData("10", "Lollipop", 392, 0.2),
-  createData("11", "Marshmallow", 318, 0),
-  createData("12", "Nougat", 360, 19.0),
-  createData("13", "Oreo", 437, 18.0),
-];
-
 export interface StaffState {
   value: StaffMember[],
   status: 'idle' | 'loading' | 'failed'
 }
 
 const initialState: StaffState = {
-  value: rows,
+  value: [],
   status: 'idle',
 }
-
 
 export const getStaffList = createAsyncThunk(
   'staff/fetchStaff',

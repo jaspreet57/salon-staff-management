@@ -1,8 +1,9 @@
-import { StaffMember } from "../types/staff";
+import axios, { AxiosResponse } from "axios";
 
-// A mock function to mimic making an async request for data
-export function fetchStaff() {
-  return new Promise<{ data: StaffMember[] }>((resolve) =>
-    setTimeout(() => resolve({ data: [] }), 500)
-  );
-}
+import { StaffMember } from "../types/staff";
+import { API_HOST } from "../configs/backend";
+
+export const fetchStaff = async () => {
+  const response: AxiosResponse<StaffMember[]> = await axios.get(`${API_HOST}/staff`);
+  return { data: response.data };
+};

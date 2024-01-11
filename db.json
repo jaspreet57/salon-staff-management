@@ -1,0 +1,29 @@
+{
+  "staff": [
+    {
+      "id": "staff-1",
+      "name": "Alice",
+      "startTime": 8,
+      "endTime": 16
+    },
+    {
+      "id": "staff-2",
+      "name": "Bob",
+      "startTime": 9,
+      "endTime": 17
+    },
+    {
+      "id": "staff-3",
+      "name": "Charlie",
+      "startTime": 10,
+      "endTime": 18
+    },
+    {
+      "id": "staff-4",
+      "name": "David",
+      "startTime": 7,
+      "endTime": 15
+    }
+  ],
+  "appointments": []
+}

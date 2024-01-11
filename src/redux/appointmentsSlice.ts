@@ -4,7 +4,6 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 import { RootState } from "./store";
 import { Appointment } from "../types/appointments";
 import { fetchAppointments } from "../api/appointments";
@@ -15,26 +14,7 @@ export interface AppointmentsState {
 }
 
 const initialState: AppointmentsState = {
-  value: [
-    {
-      id: "1",
-      memberId: "sdljf",
-      title: "Event 1",
-      clientName: "clinet one",
-      comment: "",
-      startTime: "2024/1/9 09:30",
-      endTime: "2024/1/9 10:30",
-    },
-    {
-      id: "2",
-      memberId: "sdflkj",
-      title: "Event 2",
-      clientName: "clinet two",
-      comment: "",
-      startTime: "2024/1/9 11:00",
-      endTime: "2024/1/9 12:00",
-    },
-  ],
+  value: [],
   status: "idle",
 };
 
@@ -51,17 +31,7 @@ export const appointmentsSlice = createSlice({
   initialState,
   reducers: {
     addAppointment: (state, action: PayloadAction<Appointment>) => {
-      const appointment: Appointment = {
-        id: uuidv4(),
-        memberId: uuidv4(),
-        title: "appointment one",
-        clientName: "client one",
-        comment: "...",
-        startTime: action.payload.startTime, // in minutes
-        endTime: action.payload.endTime, // in minutes
-      };
-
-      state.value.push(appointment);
+      state.value.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -85,6 +55,9 @@ export const { addAppointment } = appointmentsSlice.actions;
 // Selectors
 export const selectAppointments = (state: RootState) =>
   state.appointments.value;
+
+export const selectAppointmentsStatus = (state: RootState) =>
+state.appointments.status;
 
 export const selectAppointmentById = (appointmentId?: string) =>
   createSelector([selectAppointments], (appointments) =>

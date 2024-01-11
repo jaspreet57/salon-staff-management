@@ -47,3 +47,28 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+Notes:
+
+Steps to run locally:
+
+1. git clone repo
+2. cd repo
+3. add .env file with content : `REACT_APP_API_HOST = 'http://localhost:3001'`
+3. npm install
+4. npm install -g json-server
+5. `json-server -p -w 3001 db.json`
+6. open another terminal in same path
+7. and run `npm start`
+8. go to browser with app
+9. login with user creds (todo)
+10. that is it
+
+
+Steps to test live application
+
+1. go to ""
+9. login with user creds (todo)
+10. that is it
