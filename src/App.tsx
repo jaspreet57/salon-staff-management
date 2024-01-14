@@ -18,6 +18,7 @@ import AuthProvider, {
 } from "./components/AuthProvider";
 import CopyrightText from "./components/dashboard/CopyrightText";
 import MemberDetails from "./pages/MemberDetails";
+import AddEditStaffMember from "./pages/AddEditStaffMember";
 
 const defaultTheme = createTheme({
   palette: {
@@ -63,6 +64,22 @@ export default function App() {
                   element={
                     <RequireAuth>
                       <StaffList />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/staff/add"
+                  element={
+                    <RequireAuth>
+                      <AddEditStaffMember />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/staff/edit/:memberId"
+                  element={
+                    <RequireAuth>
+                      <AddEditStaffMember isEdit />
                     </RequireAuth>
                   }
                 />

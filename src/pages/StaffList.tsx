@@ -8,34 +8,52 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import Title from "../components/Title";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import { Link as RouterLink } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import {
-  getStaffList,
-  selectStaffList,
-} from "../redux/staffSlice";
-import { useNavigate } from "react-router-dom";
+import { getStaffList, selectStaffList } from "../redux/staffSlice";
+import SearchBox from "../components/SearchBox";
+import { StaffMember } from "../types/staff";
+import { AddCircleOutline, Edit as EditIcon } from "@mui/icons-material";
+import dayjs from "dayjs";
+import IconButton from "@mui/material/IconButton";
+import { deleteStaffMember } from "../api/staff";
 
 export default function StaffList() {
   const staffList = useAppSelector(selectStaffList);
+  const [filteredList, setFilteredList] = React.useState<StaffMember[]>([]);
   const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
     dispatch(getStaffList());
   }, [dispatch]);
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
-    event.preventDefault();
-    navigate(`/staff/${id}`);
+  React.useEffect(() => {
+    setFilteredList(
+      staffList.filter((item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  }, [searchValue, staffList]);
+
+  const onSearchValueChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleDeleteMember = (deleteMemberId: string) => async () => {
+    await deleteStaffMember(deleteMemberId);
+    dispatch(getStaffList());
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -51,11 +69,12 @@ export default function StaffList() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - staffList.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredList.length) : 0;
 
   const visibleRows = React.useMemo(
-    () => staffList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage, staffList]
+    () =>
+      filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [page, rowsPerPage, filteredList]
   );
 
   return (
@@ -66,15 +85,24 @@ export default function StaffList() {
           pr: { xs: 0 },
           display: "flex",
           justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
           alignItems: "center",
         }}
       >
         <Title>Staff List</Title>
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <SearchBox
+          placeholder="Search staff list.."
+          value={searchValue}
+          onChange={onSearchValueChange}
+        />
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to={"/staff/add"}
+          startIcon={<AddCircleOutline />}
+        >
+          Add Member
+        </Button>
       </Toolbar>
       <TableContainer>
         <Table
@@ -84,34 +112,54 @@ export default function StaffList() {
         >
           <TableHead>
             <TableRow>
-              <TableCell align="left" padding="none">
-                Staff Name
+              <TableCell align="left" padding="normal">
+                Staff Member Name
               </TableCell>
               <TableCell align="right" padding="normal">
                 Working Hours
               </TableCell>
-              <TableCell align="right" padding="normal">
-                Availability
+              <TableCell
+                align="right"
+                padding="normal"
+                style={{ maxWidth: "130px" }}
+              >
+                Actions
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {visibleRows.map((row) => {
               return (
-                <TableRow
-                  hover
-                  onClick={(event) => handleClick(event, row.id)}
-                  tabIndex={-1}
-                  key={row.id}
-                  sx={{ cursor: "pointer" }}
-                >
-                  <TableCell component="th" scope="row" padding="none">
+                <TableRow hover key={row.id} sx={{ cursor: "pointer" }}>
+                  <TableCell component="th" scope="row" padding="normal">
                     {row.name}
                   </TableCell>
                   <TableCell align="right">
-                    {row.startTime} to {row.endTime}
+                    {dayjs().set("hours", row.startTime).format("hh a")} to{" "}
+                    {dayjs().set("hours", row.endTime).format("hh a")}
                   </TableCell>
-                  <TableCell align="right"> -- </TableCell>
+                  <TableCell align="right" style={{ maxWidth: "130px" }}>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      component={RouterLink}
+                      to={`/staff/${row.id}`}
+                      startIcon={<EventOutlinedIcon />}
+                      sx={{ mr: 2 }}
+                    >
+                      Appointments
+                    </Button>
+                    <IconButton
+                      component={RouterLink}
+                      to={`/staff/edit/${row.id}`}
+                      aria-label="edit"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={handleDeleteMember(row.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -130,7 +178,7 @@ export default function StaffList() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={staffList.length}
+        count={filteredList.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

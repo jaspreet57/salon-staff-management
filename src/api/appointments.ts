@@ -1,12 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import type { ProcessedEvent } from "@aldabil/react-scheduler/types";
 
 import { Appointment } from "../types/appointments";
 import { API_HOST } from "../configs/backend";
 import { StaffMember } from "../types/staff";
-
-const wait = async () =>
-  new Promise((resolve) => setTimeout(() => resolve(null), 3000));
 
 export const fetchAppointments = async (memberId?: string) => {
   const response: AxiosResponse<Appointment[]> = await axios.get(
@@ -28,9 +24,11 @@ export const postAppointment = async (
   const appointmentEndTime = new Date(appointment.endTime);
   const memberStartHour = new Date(appointmentStartTime);
   memberStartHour.setHours(member.startTime);
+  memberStartHour.setMinutes(0);
 
   const memberEndHour = new Date(appointmentEndTime);
   memberEndHour.setHours(member.endTime);
+  memberEndHour.setMinutes(0);
 
   console.log("Adding API", {
     appointmentStartTime,

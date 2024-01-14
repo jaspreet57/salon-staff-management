@@ -3,7 +3,7 @@
     {
       "id": "staff-1",
       "name": "Alice",
-      "startTime": 8,
+      "startTime": 9,
       "endTime": 16
     },
     {
@@ -13,36 +13,54 @@
       "endTime": 17
     },
     {
-      "id": "staff-3",
-      "name": "Charlie",
-      "startTime": 10,
-      "endTime": 18
-    },
-    {
       "id": "staff-4",
       "name": "David",
       "startTime": 7,
       "endTime": 15
+    },
+    {
+      "id": "63da9b01-eb14-4f59-bf47-429c23ea2765",
+      "name": "john",
+      "startTime": 10,
+      "endTime": 16
     }
   ],
   "appointments": [
     {
-      "id": "bdb88498-c289-4c08-9efd-296440f9a2df",
+      "id": "0beb8626-d2ef-47f0-ace3-262e43f60c25",
       "memberId": "staff-1",
-      "title": "adfasd",
-      "clientName": "asdfasdf",
-      "comment": "asfdasf",
-      "startTime": "Mon, 08 Jan 2024 02:30:00 GMT",
-      "endTime": "Mon, 08 Jan 2024 03:30:00 GMT"
+      "title": "one",
+      "clientName": "asdfa",
+      "comment": "asdfasdf",
+      "startTime": "Sun, 14 Jan 2024 06:30:00 GMT",
+      "endTime": "Sun, 14 Jan 2024 07:30:00 GMT"
     },
     {
-      "id": "62118680-dd05-47f8-8d48-94f7e054e55f",
+      "id": "512a7918-0b43-40c6-8688-d5b926bfbe73",
       "memberId": "staff-1",
-      "title": "asdfasfa",
-      "clientName": "sdfasf",
-      "comment": "asdfasfd",
-      "startTime": "Mon, 08 Jan 2024 04:30:00 GMT",
-      "endTime": "Mon, 08 Jan 2024 05:30:00 GMT"
+      "title": "two",
+      "clientName": "asdfa",
+      "comment": "asdfasdf",
+      "startTime": "Sun, 14 Jan 2024 09:30:00 GMT",
+      "endTime": "Sun, 14 Jan 2024 10:30:00 GMT"
+    },
+    {
+      "id": "e03cc0d9-a0c4-45f4-bf82-d00b82399cea",
+      "memberId": "staff-1",
+      "title": "three",
+      "clientName": "asdfa",
+      "comment": "asdfa",
+      "startTime": "Sun, 14 Jan 2024 07:30:00 GMT",
+      "endTime": "Sun, 14 Jan 2024 08:30:00 GMT"
+    },
+    {
+      "id": "e03cc0d9-a0c4-45f4-bf82-d00b82399cea",
+      "memberId": "staff-1",
+      "title": "three",
+      "clientName": "asdfa",
+      "comment": "asdfa",
+      "startTime": "Sun, 14 Jan 2024 08:30:00 GMT",
+      "endTime": "Sun, 14 Jan 2024 09:30:00 GMT"
     }
   ]
 }
