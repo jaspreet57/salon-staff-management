@@ -1,74 +1,39 @@
 # salon-staff-management
 Demo react application for learning and assignment purpose
 
-# Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Instructions on how to run the application
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone project : `git clone https://github.com/jaspreet57/salon-staff-management.git` OR using SSH `git clone git@github.com:jaspreet57/salon-staff-management.git`
+2. Move to the project: `cd salon-staff-management`
+3. Install packages: `npm install`
+4. Install json-server: `npm install -g json-server` 
+5. Start json-server: `json-server -p 3001 -w db.json`
+6. Open another terminal in same project
+7. And run `npm start`
+8. Go to browser with link `http://localhost:3000` (note port number in your local running app)
+9. Login with any randon name (Authentication is not in scope of project)
+10. And that is it !
 
 
+## App Desgin - UI/UX
 
-Notes:
-
-Steps to run locally:
-
-1. git clone repo
-2. cd repo
-3. add .env file with content : `REACT_APP_API_HOST = 'http://localhost:3001'`
-3. npm install
-4. npm install -g json-server
-5. `json-server -p -w 3001 db.json`
-6. open another terminal in same path
-7. and run `npm start`
-8. go to browser with app
-9. login with user creds (todo)
-10. that is it
+1. I used material design for fast development. It provides well tested and accessible components for all our requirements.
+2. For displaying list of appointments, I used calendar view instead of list view. This will help user to identify working hours and availability of the staff. Package used is : `@aldabil/react-scheduler`. This page can also be used to create and edit appointments. Clicking on any available area, you can create appointment.
+3. I used json-server for backend development. Use of APIs in application is configured in such a way, that it is very easy to switch from json-server to another real server. You just need to change Base path URL in .env file.
+4. **IMPORTANT** - I have put all the validation logic in API call - inside `/src/api/appointments.ts` file. As this is backend job to validate if appointment can be booked or not, this logic should not be written withing react component. Component should capture details and post them and display error if any.
 
 
-Steps to test live application
+## Tools and packages used :
 
-1. go to ""
-9. login with user creds (todo)
-10. that is it
+1. `@aldabil/react-scheduler` for calendar view.
+2. `react-router-dom` for routing between pages.
+3. `@reduxjs/toolkit` for managing data store. It helps in create Actions and Reducers easily.
+4. `@mui/material` for UI design
+5. `@mui/x-date-pickers` for date inputs. - this make it easy to select date and time fields.
+6. `axios` for calling REST APIs.
+7. `uuid` for creating unique IDs.
+8. `VS Code` for development and running application.
+9. `git` and `github` for managing code versions and hosting code as a public repository.
