@@ -10,10 +10,8 @@ import { uiDimensions } from "../../configs/constants";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
 import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Link as RouterLink } from 'react-router-dom';
 
 const Drawer = styled(MuiDrawer, {
@@ -70,7 +68,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({ open, toggleDrawer }) => {
           </ListItemIcon>
           <ListItemText primary="Staff" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={RouterLink} to="/appointments">
           <ListItemIcon>
             <LayersIcon />
           </ListItemIcon>

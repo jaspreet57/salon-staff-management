@@ -19,6 +19,7 @@ import AuthProvider, {
 import CopyrightText from "./components/dashboard/CopyrightText";
 import MemberDetails from "./pages/MemberDetails";
 import AddEditStaffMember from "./pages/AddEditStaffMember";
+import AllAppointments from "./pages/AllAppointments";
 
 const defaultTheme = createTheme({
   palette: {
@@ -88,6 +89,14 @@ export default function App() {
                   element={
                     <RequireAuth>
                       <MemberDetails />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/appointments"
+                  element={
+                    <RequireAuth>
+                      <AllAppointments />
                     </RequireAuth>
                   }
                 />
