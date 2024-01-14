@@ -20,6 +20,8 @@ import CopyrightText from "./components/dashboard/CopyrightText";
 import MemberDetails from "./pages/MemberDetails";
 import AddEditStaffMember from "./pages/AddEditStaffMember";
 import AllAppointments from "./pages/AllAppointments";
+import { getStaffList } from "./redux/staffSlice";
+import { useAppDispatch } from "./redux/hooks";
 
 const defaultTheme = createTheme({
   palette: {
@@ -33,10 +35,15 @@ const defaultTheme = createTheme({
 });
 
 export default function App() {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  React.useEffect(() => {
+    dispatch(getStaffList());
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={defaultTheme}>

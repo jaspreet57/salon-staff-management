@@ -13,8 +13,12 @@ import Title from "../components/Title";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import SearchBox from "../components/SearchBox";
 import dayjs from "dayjs";
-import { getAppointments, selectAppointments } from "../redux/appointmentsSlice";
+import {
+  getAppointments,
+  selectAppointments,
+} from "../redux/appointmentsSlice";
 import { Appointment } from "../types/appointments";
+import Typography from "@mui/material/Typography";
 
 export default function AllAppointments() {
   const appointments = useAppSelector(selectAppointments);
@@ -98,7 +102,7 @@ export default function AllAppointments() {
               <TableCell align="right" padding="normal">
                 Client Name
               </TableCell>
-              <TableCell align="right" padding="normal">
+              <TableCell align="left" padding="normal">
                 Comment
               </TableCell>
               <TableCell
@@ -117,15 +121,21 @@ export default function AllAppointments() {
                   <TableCell component="th" scope="row" padding="normal">
                     {row.title}
                   </TableCell>
-                  <TableCell align="right">
-                    {row.clientName}
+                  <TableCell align="right">{row.clientName}</TableCell>
+                  <TableCell align="left">
+                    <Typography
+                      variant="body1"
+                      component="div"
+                      whiteSpace="pre-line"
+                      gutterBottom
+                    >
+                      {row.comment}
+                    </Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    {row.comment}
-                  </TableCell>
+
                   <TableCell align="right" style={{ maxWidth: "100px" }}>
-                    {dayjs(row.startTime).format("MM/DD/YYYY hh:mm a")} <br /> to{" "}
-                    {dayjs(row.endTime).format("MM/DD/YYYY hh:mm a")}
+                    {dayjs(row.startTime).format("MM/DD/YYYY hh:mm a")} <br />{" "}
+                    to {dayjs(row.endTime).format("MM/DD/YYYY hh:mm a")}
                   </TableCell>
                 </TableRow>
               );

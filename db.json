@@ -17,41 +17,7 @@
       "name": "David",
       "startTime": 7,
       "endTime": 15
-    },
-    {
-      "id": "63da9b01-eb14-4f59-bf47-429c23ea2765",
-      "name": "john",
-      "startTime": 10,
-      "endTime": 16
     }
   ],
-  "appointments": [
-    {
-      "id": "0beb8626-d2ef-47f0-ace3-262e43f60c25",
-      "memberId": "staff-1",
-      "title": "one",
-      "clientName": "asdfa",
-      "comment": "asdfasdf",
-      "startTime": "Sun, 14 Jan 2024 06:30:00 GMT",
-      "endTime": "Sun, 14 Jan 2024 07:30:00 GMT"
-    },
-    {
-      "id": "512a7918-0b43-40c6-8688-d5b926bfbe73",
-      "memberId": "staff-1",
-      "title": "two",
-      "clientName": "asdfa",
-      "comment": "asdfasdf",
-      "startTime": "Sun, 14 Jan 2024 09:30:00 GMT",
-      "endTime": "Sun, 14 Jan 2024 10:30:00 GMT"
-    },
-    {
-      "id": "82e877e4-220c-43c3-92c3-4918d3981dd0",
-      "memberId": "staff-1",
-      "title": "two",
-      "clientName": "asdf",
-      "comment": "asdf",
-      "startTime": "Sun, 14 Jan 2024 07:30:00 GMT",
-      "endTime": "Sun, 14 Jan 2024 08:30:00 GMT"
-    }
-  ]
+  "appointments": []
 }

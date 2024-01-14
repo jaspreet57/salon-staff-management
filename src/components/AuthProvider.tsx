@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 import { fakeAuthProvider } from "../api/auth";
 import { AuthContextType } from "../types/auth";
@@ -80,13 +72,14 @@ export function LoginPage() {
       // when they get to the protected page and click the back button, they
       // won't end up back on the login page, which is also really nice for the
       // user experience.
+      localStorage.setItem("username", username);
       navigate(from, { replace: true });
     });
   }
 
   return (
     <div>
-      <p>You must log in to view the page at {from}</p>
+      <p>You must log in</p>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -103,7 +96,9 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  let [user, setUser] = React.useState<any>(null);
+  let [user, setUser] = React.useState<any>(
+    localStorage.getItem("username") ? localStorage.getItem("username") : null
+  );
 
   let signin = (newUser: string, callback: VoidFunction) => {
     return fakeAuthProvider.signin(() => {
@@ -113,6 +108,7 @@ export default function AuthProvider({
   };
 
   let signout = (callback: VoidFunction) => {
+    localStorage.removeItem("username");
     return fakeAuthProvider.signout(() => {
       setUser(null);
       callback();

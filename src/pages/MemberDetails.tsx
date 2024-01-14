@@ -82,7 +82,7 @@ const MemberDetails: React.FC = () => {
             endTime: eventData.end.toUTCString(),
           },
           member,
-          action === 'edit'
+          action === "edit"
         );
       } catch (error) {
         if (error instanceof Error) {
@@ -111,7 +111,9 @@ const MemberDetails: React.FC = () => {
     setErrorMessage("");
   };
 
-  const deleteEventHandler = React.useCallback<(deletedId: string | number) => Promise<string | number | void>>(async (deletedId) => {
+  const deleteEventHandler = React.useCallback<
+    (deletedId: string | number) => Promise<string | number | void>
+  >(async (deletedId) => {
     await deleteAppointment(`${deletedId}`);
     return deletedId;
   }, []);
@@ -199,6 +201,24 @@ const MemberDetails: React.FC = () => {
           endHour: member.endTime as DayHours,
           step: 60,
         }}
+        viewerExtraComponent={(fields, event) => {
+          return (
+            <Box sx={{ p: 2 }}>
+              <Typography component="strong" display="block" sx={{ fontWeight: 900 }}>
+                Client Name:
+              </Typography>
+              <Typography gutterBottom color="textSecondary">
+                {event.clientName}
+              </Typography>
+              <Typography component="strong" display="block" sx={{ fontWeight: 900 }}>
+                Comment :
+              </Typography>
+              <Typography variant="body1" component="div" whiteSpace="pre-line" gutterBottom>
+                {event.comment}
+              </Typography>
+            </Box>
+          );
+        }}
         fields={[
           {
             name: "clientName",
@@ -215,6 +235,7 @@ const MemberDetails: React.FC = () => {
             config: {
               label: "Comment",
               variant: "outlined",
+              multiline: true,
             },
           },
         ]}
