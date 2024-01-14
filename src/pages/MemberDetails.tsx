@@ -23,20 +23,13 @@ import {
   selectAppointments,
   selectAppointmentsStatus,
 } from "../redux/appointmentsSlice";
-import { postAppointment } from "../api/appointments";
+import { deleteAppointment, postAppointment } from "../api/appointments";
 import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 interface MemberUrlParams {
   memberId?: string;
 }
-
-// const formatDate = (inputDate: Date) => {
-//   const dateParts = inputDate.toLocaleString().split('T');
-//   const date = dateParts[0].split('-').join('/');
-//   const time = dateParts[1].slice(0, 5);
-//   return `${date} ${time}`;
-// }
 
 const MemberDetails: React.FC = () => {
   const { memberId }: MemberUrlParams = useParams();
@@ -88,10 +81,10 @@ const MemberDetails: React.FC = () => {
             startTime: eventData.start.toUTCString(),
             endTime: eventData.end.toUTCString(),
           },
-          member
+          member,
+          action === 'edit'
         );
       } catch (error) {
-        // to do
         if (error instanceof Error) {
           setErrorMessage(error.message);
           setOpenMessage(true);
@@ -118,9 +111,10 @@ const MemberDetails: React.FC = () => {
     setErrorMessage("");
   };
 
-  // const deleteEventHandler = React.useCallback<(deletedId: string | number) => Promise<string | number | void>>(async (deletedId) => {
-  //   return
-  // }, []);
+  const deleteEventHandler = React.useCallback<(deletedId: string | number) => Promise<string | number | void>>(async (deletedId) => {
+    await deleteAppointment(`${deletedId}`);
+    return deletedId;
+  }, []);
 
   if (!member) {
     return (
@@ -186,6 +180,7 @@ const MemberDetails: React.FC = () => {
         loading={status === "loading"}
         draggable={false}
         onConfirm={addEventHandler}
+        onDelete={deleteEventHandler}
         month={{
           weekDays: [0, 1, 2, 3, 4, 5],
           weekStartOn: 6,
@@ -204,7 +199,6 @@ const MemberDetails: React.FC = () => {
           endHour: member.endTime as DayHours,
           step: 60,
         }}
-        // onDelete={deleteEventHandler}
         fields={[
           {
             name: "clientName",

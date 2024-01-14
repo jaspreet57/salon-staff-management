@@ -13,7 +13,8 @@ export const fetchAppointments = async (memberId?: string) => {
 
 export const postAppointment = async (
   appointment: Appointment,
-  member?: StaffMember
+  member?: StaffMember,
+  isUpdate?: boolean
 ) => {
   // validations logic here..
   if (!member) {
@@ -30,12 +31,6 @@ export const postAppointment = async (
   memberEndHour.setHours(member.endTime);
   memberEndHour.setMinutes(0);
 
-  console.log("Adding API", {
-    appointmentStartTime,
-    appointmentEndTime,
-    memberStartHour,
-    memberEndHour,
-  });
   if (appointmentStartTime >= appointmentEndTime) {
     throw new Error(
       "Appointment start time should not be greater than appointment end time"
@@ -51,9 +46,13 @@ export const postAppointment = async (
     );
   }
 
-  const { data: latestAppointments } = await fetchAppointments(member.id);
+  let { data: latestAppointments } = await fetchAppointments(member.id);
 
-  console.log("Latest appointments", { latestAppointments });
+  if (isUpdate) {
+    latestAppointments = latestAppointments.filter(
+      (item) => appointment.id !== item.id
+    );
+  }
 
   if (latestAppointments.length > 0) {
     for (const scheduledAppointment of latestAppointments) {
@@ -84,5 +83,13 @@ export const postAppointment = async (
     }
   }
 
+  if (isUpdate) {
+    return axios.put(`${API_HOST}/appointments/${appointment.id}`, appointment);
+  }
+
   return axios.post(`${API_HOST}/appointments`, appointment);
+};
+
+export const deleteAppointment = async (appointmentId: string) => {
+  await axios.delete(`${API_HOST}/appointments/${appointmentId}`);
 };
